@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="eRAVAC — Classroom vision screening web app. Installable Progressive Web App for teachers and optometrists.">
+<title>eRAVAC — mySPECS 2030</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#EDF1F3">
+<link rel="icon" href="/favicon.ico">
+<style>
+  :root{
+    --ink:#12202B; --ink-2:#3A5163; --muted:#6B8194;
+    --paper:#EDF1F3; --card:#FFFFFF; --line:#D3DDE3;
+    --teal:#0E6E6E; --clin:#2F5AA8;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--paper);color:var(--ink);min-height:100vh;
+    font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    display:flex;align-items:center;justify-content:center;padding:24px
+  }
+  .wrap{max-width:480px;width:100%}
+  .mark{font-weight:800;font-size:26px;letter-spacing:-.03em;text-align:center}
+  .mark span{color:var(--teal)}
+  p.sub{text-align:center;color:var(--ink-2);font-size:14.5px;margin:6px 0 30px}
+  a.path{
+    display:block;background:var(--card);border:1.5px solid var(--line);border-radius:14px;
+    padding:20px;margin-bottom:14px;text-decoration:none;color:inherit
+  }
+  a.path:hover{border-color:var(--teal)}
+  a.path.blue:hover{border-color:var(--clin)}
+  .pt{display:block;font-size:19px;font-weight:700;letter-spacing:-.02em;margin-bottom:3px}
+  .path .pt span{color:var(--teal)}
+  .path.blue .pt span{color:var(--clin)}
+  .pd{display:block;font-size:13.5px;color:var(--ink-2);line-height:1.4}
+  .foot{text-align:center;font-size:12px;color:var(--muted);margin-top:24px}
+
+  /* Accessibility: visible focus for keyboard users */
+  a.path:focus{outline:3px solid var(--teal);outline-offset:3px;border-color:var(--teal)}
+  a.path:focus .pt{box-shadow:none}
+
+  /* Respect users preferring reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="mark">e<span>RAVAC</span></div>
+    <p class="sub">Classroom vision screening · part of the mySPECS 2030 initiative</p>
+  </header>
+
+  <main>
+    <a class="path" href="/teacher/" aria-label="Open Teacher app — screen a class and manage roster">
+      <span class="pt">e<span>RAVAC</span> — Teacher</span>
+      <span class="pd">Screen a class, manage the roster, send referrals to an optometrist.</span>
+    </a>
+
+    <a class="path blue" href="/companion/" aria-label="Open Companion app for optometrists — view referrals and record refraction">
+      <span class="pt">eRAVAC <span>Companion</span> — Optometrist</span>
+      <span class="pd">Open referral lists, record refraction, send results back to the school.</span>
+    </a>
+  </main>
+
+  <p class="foot">Runs entirely in your browser. No account, no server, no data leaves this device.</p>
+</div>
+
+<script>
+// Register service worker for offline support and PWA installation
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/service-worker.js').then(function(reg) {
+      // Registration succeeded
+      console.log('ServiceWorker registration successful with scope: ', reg.scope);
+    }, function(err) {
+      // registration failed
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+</script>
+</body>
+</html>
